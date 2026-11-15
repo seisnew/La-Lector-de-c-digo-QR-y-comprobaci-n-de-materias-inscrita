@@ -1,6 +1,44 @@
 -- ==========================================
--- 1ER SEMESTRE
+-- 1. CREACIÓN DE TABLAS PRINCIPALES
 -- ==========================================
+
+CREATE TABLE materias (
+    codigo VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(120) NOT NULL,
+    semestre INT NOT NULL,
+    uc INT NOT NULL
+);
+
+CREATE TABLE prelaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    materia_codigo VARCHAR(20),
+    requisito_codigo VARCHAR(20),
+    FOREIGN KEY (materia_codigo) REFERENCES materias(codigo),
+    FOREIGN KEY (requisito_codigo) REFERENCES materias(codigo)
+);
+
+CREATE TABLE correquisitos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    materia_a VARCHAR(20),
+    materia_b VARCHAR(20),
+    FOREIGN KEY (materia_a) REFERENCES materias(codigo),
+    FOREIGN KEY (materia_b) REFERENCES materias(codigo)
+);
+
+CREATE TABLE historial_estudiantes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cedula VARCHAR(20) NOT NULL,
+    materia_codigo VARCHAR(20),
+    estatus ENUM('APROBADA', 'REPROBADA') DEFAULT 'APROBADA',
+    FOREIGN KEY (materia_codigo) REFERENCES materias(codigo)
+);
+
+
+-- ==========================================
+-- 2. INSERCIÓN DE CATÁLOGO DE MATERIAS (1.ER AL 8.VO SEMESTRE)
+-- ==========================================
+
+-- 1er Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('ADG25132', 'Educación Ambiental', 1, 2),
 ('ADG25123', 'Hombre, Sociedad, Ciencia y Tecnología', 1, 3),
@@ -12,9 +50,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('DIN21113', 'Instrucción Militar I', 1, 0),
 ('ADO10101', 'Actividades Complementarias I', 1, 0);
 
--- ==========================================
--- 2DO SEMESTRE
--- ==========================================
+-- 2do Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('IDM24123', 'Inglés II', 2, 3),
 ('QUF22014', 'Química General', 2, 4),
@@ -25,9 +61,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('DIN21123', 'Instrucción Militar II', 2, 0),
 ('ADO10102', 'Actividades Complementarias II', 2, 0);
 
--- ==========================================
--- 3ER SEMESTRE
--- ==========================================
+-- 3er Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('QUF23025', 'Física II', 3, 5),
 ('MAT21235', 'Matemática III', 3, 5),
@@ -37,9 +71,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('DIN21133', 'Instrucción Militar III', 3, 0),
 ('ADO10103', 'Actividades Complementarias III', 3, 0);
 
--- ==========================================
--- 4TO SEMESTRE
--- ==========================================
+-- 4to Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('TLC31115', 'Redes Eléctricas I', 4, 5),
 ('ELN35135', 'Señales y Sistemas', 4, 5),
@@ -50,9 +82,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('DIN31143', 'Instrucción Militar IV', 4, 0),
 ('ADO10104', 'Actividades Complementarias IV', 4, 0);
 
--- ==========================================
--- 5TO SEMESTRE
--- ==========================================
+-- 5to Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('TLC31125', 'Redes Eléctricas II', 5, 5),
 ('TLC31225', 'Electrónica I', 5, 5),
@@ -63,9 +93,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('DIN31153', 'Instrucción Militar V', 5, 0),
 ('ADO10105', 'Actividades Complementarias V', 5, 0);
 
--- ==========================================
--- 6TO SEMESTRE
--- ==========================================
+-- 6to Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('TLC31235', 'Electrónica II', 6, 5),
 ('ELN32225', 'Microprocesadores', 6, 5),
@@ -78,27 +106,7 @@ INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('TLC31325', 'Electrónica de las Comunicaciones', 6, 5),
 ('AGM30314', 'Mantenimiento General', 6, 4);
 
--- ==========================================
--- 7MO SEMESTRE
--- ==========================================
+-- 7mo Semestre
 INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
 ('TLC35414', 'Sistemas de Comunicaciones I', 7, 4),
-('ELN35344', 'Antenas', 7, 4),
-('ELN35323', 'Comunicaciones Ópticas', 7, 3),
-('ADG30214', 'Metodología de la Investigación', 7, 4),
-('ENT31713', 'Electiva No Técnica', 7, 3),
-('DIN31173', 'Instrucción Militar VII', 7, 0),
-('ADO10107', 'Actividades Complementarias VII', 7, 0);
-
--- ==========================================
--- 8VO SEMESTRE
--- ==========================================
-INSERT INTO materias (codigo, nombre, semestre, uc) VALUES
-('TLC35424', 'Sistemas de Comunicaciones II', 8, 4),
-('TLC35465', 'Redes de Telecomunicaciones', 8, 5),
-('AGL35423', 'Seminario de Telecomunicaciones II', 8, 3),
-('TLC31323', 'Transmisión de Datos', 8, 3),
-('ELN_TEC1', 'Electiva Técnica', 8, 3),
-('ELN_TEC2', 'Electiva Técnica', 8, 3),
-('DIN31183', 'Instrucción Militar VIII', 8, 0),
-('ADO10108', 'Actividades Complementarias VIII', 8, 0);
+('ELN35344
